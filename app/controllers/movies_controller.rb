@@ -6,8 +6,6 @@ class MoviesController < ApplicationController
     end
 
     def show
-      session[:ratings] ||= params[:ratings]
-      session[:sort_by] ||= params[:sort_by]
       id = params[:id] # retrieve movie ID from URI route
       @movie = Movie.find(id) # look up movie by unique ID
       # will render app/views/movies/show.<extension> by default
@@ -19,6 +17,11 @@ class MoviesController < ApplicationController
         params[:ratings] ||= session[:ratings]
         params[:sort_by] ||= session[:sort_by]
       end
+
+      session[:ratings] ||= params[:ratings]
+      session[:sort_by] ||= params[:sort_by]
+
+      
 
       if params[:ratings] != nil
         ratings_arr = params[:ratings].keys
